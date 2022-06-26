@@ -22,7 +22,7 @@ const handleServerPostReq = async (req, res, next) => {
       const urlExits = await URLModel.findOne({ longURL });
       //if it exits send it
       if (urlExits) {
-        return res.status(200).json(urlExits);
+        return res.status(200).json({ shortURL: urlExits.shortURL });
       } else {
         //if it dont exits create a new one
         //genarete url code
@@ -36,7 +36,7 @@ const handleServerPostReq = async (req, res, next) => {
           longURL,
         });
         //send the new url
-        return res.status(200).json(newURL);
+        return res.status(200).json({ shortURL: newURL.shortURL });
       }
     } else {
       next(createError(400, "Provide a valid URL!"));
